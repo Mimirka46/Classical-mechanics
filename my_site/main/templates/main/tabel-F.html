@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица</title>
+    <style>
+        /* Фон с градиентом */
+        body {
+            font-family: Lemonada, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, 
+                rgba(217, 179, 67, 0.69) 10%,
+                rgba(217, 170, 82, 0.77) 20.5%,
+                rgba(166, 108, 38, 0.82) 40%,
+                rgba(89, 51, 18, 0.86) 76%,
+                rgba(38, 18, 1, 0.84) 90.5%);
+            height: 120vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Стиль для жёлтого прямоугольника */
+        .yellow-box {
+            border-radius: 40px;
+            background-color: yellow;
+            width: 900px;
+            height: 870px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            margin: 50px auto; /* Центрируем прямоугольник */
+        }
+
+        /* Стиль для текста "Таблица cos и sin" */
+        .title {
+            font-size: 52px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            
+        }
+
+        /* Стиль для изображения */
+        .image-container {
+            width: 90%;
+            text-align: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Стиль для ссылки на PDF */
+        .pdf-link {
+            font-size: 18px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pdf-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Жёлтый прямоугольник с текстом и таблицей -->
+    <div class="yellow-box">
+        <div class="title">Таблица коэфициента трения</div>
+        <div class="image-container">
+            <img src="img\Screenshot_1.png" alt="Таблица коэфициента трения">
+        </div>
+        <a href="https://minkor.ru/upload/spravochnik/170310-2.pdf" class="pdf-link" target="_blank">Перейти к PDF документу</a>
+    </div>
+
+
+
+</body>
+</html>

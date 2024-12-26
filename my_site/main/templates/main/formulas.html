@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица</title>
+    <style>
+        /* Фон с градиентом */
+        body {
+            font-family: Lemonada, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, 
+                rgba(217, 179, 67, 0.69) 30%,
+                rgba(217, 170, 82, 0.77) 40.5%,
+                rgba(166, 108, 38, 0.82) 70%,
+                rgba(89, 51, 18, 0.86) 86%,
+                rgba(38, 18, 1, 0.84) 100.5%);
+            height: 420vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Стиль для жёлтого прямоугольника */
+        .yellow-box {
+            border-radius: 40px;
+            background-color: yellow;
+            width: 900px;
+            height: 2590px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            margin: 50px auto; /* Центрируем прямоугольник */
+        }
+
+        /* Стиль для заголовка */
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .side-text {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 40px;
+        }
+
+        .equation {
+            font-weight: bold;
+            font-size: 28px;
+            text-align: left; /* Выравнивание текста по левому краю */
+            padding-left: 20px; /* Добавляем отступ слева */
+        }
+
+        /* Стилизация только для "ср" в уравнении */
+        .equation .small-text {
+            font-size: 15px;
+        }
+
+        .horizontal-line {
+            border-top: 2px solid black;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="yellow-box">
+        <div class="title">Формулы</div> <!-- Добавленный заголовок -->
+        <div class="text-block content">
+    
+            <div class="horizontal-line"></div>
+    
+            <div class="text-block content">
+                <div class="side-text">Равнопеременное прямолинейное движение</div>
+                <div>
+                    <p class="equation">1. a = 𝒗 – 𝒗₀ / t - ускорение</p>
+                    <p class="equation">2. x = ±x₀ ± 𝒗₀t ± at/2 - уравнение Галлилео</p>
+                    <p class="equation">3. 𝒗 = ±𝒗₀ ± at  - уравнение скорости</p>
+                    <p class="equation">4. 2Sa=𝒗²-𝒗₀²</p>
+                    <p class="equation">5. 𝒗<span class="small-text">ср</span> = S₁ + S₂ + S₃ … / t₁ + t₂ + t₃ … - средняя скорость</p>
+                    <p class="equation">a - ускорение (м/с²)</p>
+                    <p class="equation">𝒗 - скорость (м/с)</p>
+                    <p class="equation">t - время (с)</p>
+                    <p class="equation">S - путь (м)</p>
+                </div>
+            </div>
+            <div class="horizontal-line"></div>
+    
+            <div class="text-block content">
+                <div class="side-text">Движение по окружности:</div>
+                <div>
+                    <p class="equation">1. a = 𝒗 – 𝒗₀ / t - ускорение</p>
+                    <p class="equation">2. x = ±x₀ ± 𝒗₀t ± at/2 - уравнение движения</p>
+                    <p class="equation">3. 𝒗 = ±𝒗₀ ± at  - уравнение скорости</p>
+                    <p class="equation">4. 𝒗<span class="small-text">ср</span> = S₁ + S₂ + S₃ … / t₁ + t₂ + t₃ … - средняя скорость</p>
+                    <p class="equation">5. S = x − x₀ = 𝒗t - перемещение</p>
+                </div>
+            </div>
+    
+            <div class="horizontal-line"></div>
+    
+            <div class="side-text">Движение по окружности:</div>
+            <div>
+                <p class="equation">1. w = l / t - Угловая скорость</p>
+                <p class="equation">2. 𝒗 = wR - скорость</p>
+                <p class="equation">3. a = 𝒗² / R - центростремительное ускорение</p>
+            </div>
+    
+            <div class="horizontal-line"></div>
+    
+            <div class="text-block content">
+                <div class="side-text">Динамика</div>
+                <div>
+                    <p class="equation">1. ma = F₁ + F₂ + ... + Fn - Второй закон Ньютона</p>
+                    <p class="equation">2. m₁a₁ = -m₂a₂ - Третий закон Ньютона</p>
+                    <p class="equation">3. F = kx - Закон Гука</p>
+                    <p class="equation">4. F<span class="small-text">тр</span> = ±𝒗₀ ± at - Модуль силы трения</p>
+                    <p class="equation">5. F = G (m₁m₂) / R² - Закон всемирного тяготения</p>
+                    <p class="equation">F - сила (Н)</p>
+                    <p class="equation">R - радиус планеты (Н)</p>
+                    <p class="equation">m - масса (кг)</p>
+                    <p class="equation">k - коэффициент упругости</p>
+                    <p class="equation">x - длина растяжимости (м)</p>
+                    <p class="equation">G - гравитационная постоянная (Н·м²/кг²)</p>
+                    <p class="equation">G = 6,67 × 10⁻¹¹ (Н·м²/кг²)</p>
+                </div>
+            </div>
+    
+            <div class="horizontal-line"></div>
+    
+            <div class="text-block content">
+                <div class="side-text">Статика</div>
+                <div>
+                    <p class="equation">1. M = Fl - Момент силы</p>
+                    <p class="equation">2. M₁ + M₂ + M₃ + ... = 0 - Правило моментов</p>
+                    <p class="equation">3. F₁ + F₂ + F₃ + ... = 0 - Первое условие равновесия</p>
+                    <p class="equation">M - момент силы (Н·м)</p>
+                    <p class="equation">l - плечо силы (м)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

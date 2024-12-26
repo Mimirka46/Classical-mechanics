@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title%} Fiz=MAth {% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@575display=swap" rel="stylesheet">
+    <style>
+
+
+        /* Ваши стили остаются без изменений */
+
+        .user-info {
+            display: flex;
+            flex-direction: column; /* Выравнивание имени под аватаром */
+            align-items: flex-start; /* Смещение влево */
+            text-align: left; /* Выравнивание текста по левому краю */
+            gap: 10px; /* Добавим расстояние между элементами */
+            margin-left: 0; /* Дополнительно сдвинем к левому краю, если необходимо */
+        }
+
+        .avatar-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #fff;
+            cursor: pointer;
+        }
+
+        .avatar-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Дополнительные стили для аватарки */
+        #user-avatar {
+            content: url('img/ava.png');  /* Путь к аватарке */
+        }
+
+
+
+
+        .text-block {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .equation {
+            font-weight: bold;
+            font-size: 28px;
+            text-align: left; /* Выравнивание текста по левому краю */
+            padding-left: 20px; /* Добавляем отступ слева */
+        }
+
+        .horizontal-line {
+            border-top: 2px solid black;
+            margin: 20px 0;
+        }
+
+        .side-text {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 40px;
+        }
+
+        .content {
+            display: block; /* Используем блочный стиль для выравнивания текста по левому краю */
+        }
+
+        .content div {
+            margin-left: 20px;
+        }
+
+        .small {
+            font-size: 10px;
+        }
+        
+        /* Стилизация только для "ср" в уравнении */
+        .equation .small-text {
+            font-size: 15px;
+        }
+        
+        .element {
+            background: radial-gradient(circle, #FF0000, #0000FF);
+            width: 500px;
+            height: 500px;
+        }
+
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Lemonada, Arial, sans-serif;
+            background: linear-gradient(180deg, rgba(217, 179, 67, 0.69) 40%,
+            rgba(217, 170, 82, 0.77) 30.5%,
+            rgba(166, 108, 38, 0.82) 95%,
+            rgba(89, 51, 18, 0.86) 100%,
+            rgba(38, 18, 1, 0.84) 110.5%);
+
+            height: 800vh;
+            
+
+        }
+
+        /* Стили для шапки */
+        header {
+            flex-shrink: 0;
+            background-color: yellow;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        /* Логотип */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 120.121px;
+            height: 76.19px;
+            flex-shrink: 0;
+            margin-right: 10px; /* Отступ между логотипом и текстом */
+        }
+
+        .logo a {
+            color: black;
+            font-size: 30px;
+            font-weight: 520;
+            text-decoration: none;
+        }
+
+        /* Навигация */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 80px;
+        }
+
+        .nav-links li a {
+            color: black;
+            text-decoration: none;
+            font-size: 30px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #ff8b47;
+        }
+
+        /* Call-to-Action Button */
+        .cta .button {
+            width: 290px;
+            height: 65px;
+            flex-shrink: 0;
+            background-color: #F8C67AE5;
+            color: black;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .cta .button:hover {
+            background-color: #ff8b47;
+        }
+
+        /* Стили для текста приветствия */
+        .welcome-text {
+            display: flex;
+            align-items: center; /* Центрируем по вертикали */
+            justify-content: center; /* Центрируем по горизонтали */
+            height: 300px; /* Выставляем высоту для центрации */
+            color: #000;
+            text-align: center;
+            font-family: Lemonada;
+            font-size: 52px;
+            font-style: normal;
+            font-weight: 575;
+            line-height: 90px; /* 173.077% */
+            margin-top: 120px; /* Смещение вниз, если необходимо */
+        }
+
+        /* Общие стили для контейнера */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 10px; /* Отступ сверху */
+        }
+
+        /* Стили для каждого прямоугольника */
+        .rectangle {
+            width: 724px;
+            height: 264px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        /* Стили для изображения внутри прямоугольника */
+        .rectangle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease; /* Плавный переход для opacity */
+        }
+
+        /* Текст внутри прямоугольника */
+        .text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #000;
+            font-family: 'Lemonada', sans-serif;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 575;
+            line-height: 55px; /* 229.167% */
+            background-color: rgba(124, 124, 124, 0.46); /* Чуть черный фон поверх */
+            display: flex;
+            justify-content: center;
+            align-items: center;  /* Центрируем текст по вертикали и горизонтали */
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center; /* Центрирование текста по горизонтали */
+        }
+
+        /* Эффект увеличения и затемнения при наведении */
+        .rectangle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Стили для второй части программы */
+        .header-text {
+            color: #000;
+            text-align: center;
+            font-family: Lemonada;
+            font-size: 52px;
+            font-style: normal;
+            font-weight: 575;
+            line-height: 140px; /* 269.231% */
+            margin-top: 200px; /* Добавлен отступ между частями */
+        }
+
+        /* Контейнер для кнопок */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Стиль для ряда кнопок */
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Расстояние между кнопками */
+        }
+
+        /* Стили для кнопок */
+        .button {
+            width: 600px;
+            height: 300px;
+            flex-shrink: 0;
+            border: 2px solid #000;
+            background: rgba(255, 255, 255, 0.60);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7; /* Начальная прозрачность */
+            transition: opacity 0.3s ease;
+        }
+
+        .button span {
+            position: absolute;
+            color: black;
+            font-size: 60px;
+            font-weight: bold;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Эффект при наведении на кнопки */
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .button:hover img {
+            opacity: 0.5; /* Снижение яркости изображения при наведении */
+        }
+
+       
+
+
+
+        /* Добавим отступ для секции с таблицей */
+        .table-section {
+            margin-top: 100px; /* Опускаем блок вниз */
+            text-align: center;
+        }
+
+        /* Центрирование видео */
+        .video-container {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /* Центрирование по вертикали */
+            margin-top: 20px; /* Небольшой отступ сверху */
+        }
+        
+        iframe {
+            width: 70%;  /* Размер видео по ширине */
+            height: 600px; /* Высота видео */
+        }
+
+        .video-text {
+            text-align: center;
+            font-size: 52px;
+            margin-top: 200px; /* Уменьшил отступ сверху */
+            margin-bottom: 20px; /* Добавил небольшой отступ снизу, если нужно */
+            font-weight: 600;
+          }
+        
+
+        /* Стили для ссылки */
+        .link {
+            font-size: 30px;
+            text-decoration: none;
+            color: #007BFF;  /* Синий цвет для ссылки */
+            font-weight: bold;
+        }
+
+        .link:hover {
+            color: #0056b3;  /* Более темный синий при наведении */
+        }
+
+        /* Стили для отображения имени пользователя и аватарки */
+        #user-info {
+            display: flex;
+            align-items: center;  /* Выравнивание по вертикали */
+            justify-content: flex-start; /* Выравнивание по горизонтали слева */
+            margin-right: 20px;  /* Отступ справа */
+            margin-left: 20px;   /* Отступ слева */
+            text-align: left;     /* Выравнивание текста по левому краю */
+        }
+        
+        
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: normal;
+            margin: 0; /* Убираем лишние внешние отступы */
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Круглая форма */
+            object-fit: cover; /* Чтобы изображение не искажалось */
+        }
+
+
+        /* Модальное окно */
+        .modal {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+            z-index: 2000; /* Слой поверх всего */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
+        }
+        
+        /* Модальное окно контент */
+        .modal-content {
+            background-color: white;
+            margin: 5% auto; /* Центрируем окно по вертикали */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 1500px; /* Ширина окна */
+            height: 700px; /* Высота окна */
+            border-radius: 10px;
+            position: relative; /* Чтобы расположить элементы внутри */
+            text-align: center;
+            background-color: rgb(255, 230, 117); 
+        }
+        
+        /* Заголовок "Профиль" */
+        .modal-header {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* Стили для отображения аватара в модальном окне */
+        .user-info {
+            position: relative; /* Создаем контекст для абсолютного позиционирования */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Выравниваем элементы по левому краю */
+            margin-left: 100px; /* Сдвиг контейнера влево */
+        }
+        
+        /* Аватарка */
+        .modal-avatar {
+            width: 400px;  /* Размер аватарки */
+            height: 400px;
+            border-radius: 50%; /* Круглая форма */
+            object-fit: cover; /* Чтобы изображение не искажалось */
+            margin-left: -1050px; /* Дополнительно сместить аватарку влево */
+        }
+        /* Имя пользователя */
+        .modal-username {
+            position: absolute; /* Абсолютное позиционирование */
+            bottom: 70px; /* Располагаем ниже центра аватарки */
+            left: 50%; /* Центрируем по горизонтали относительно контейнера */
+            transform: translateX(-50%); /* Компенсируем смещение от левого края */
+            color: #000;
+            font-family: Lemonada, sans-serif;
+            font-size: 52px;
+            font-weight: 380;
+            line-height: normal;
+            text-align: center;
+            margin-left: -540px
+        }
+        
+        
+        .close-btn:hover {
+            color: red; /* Изменение цвета при наведении */
+            transform: scale(1.5); /* Увеличение размера на 50% */
+        }
+
+        .close-btn {
+            position: absolute; /* Позволяет перемещать элемент */
+            top: 10px; /* Расстояние от верхнего края контейнера */
+            right: 10px; /* Расстояние от правого края контейнера */
+            font-size: 24px; /* Размер крестика */
+            color: black; /* Цвет по умолчанию */
+            cursor: pointer; /* Курсор при наведении */
+            transition: transform 0.2s ease, color 0.2s ease; /* Плавные переходы */
+        }
+        
+        /* Кнопка "Выйти из аккаунта" */
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff4500;
+        }
+        
+        /* Стили для виджета чата */
+        #telegram-chat {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 9999;
+          width: 50px;
+          height: 50px;
+          background-color:rgb(18,154,215);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        #telegram-chat img {
+          width: 60px;
+          height: 40px;
+        }
+    
+        #telegram-chat a {
+          color: white;
+          text-decoration: none;
+        }
+
+        /* Стили для выпадающего меню */
+.nav .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: yellow;  /* Задаем жёлтый фон */
+    min-width: 160px;
+    box-shadow: rgba(0, 0, 0, 0);
+    z-index: 1;
+    text-align: center;  /* Центрируем содержимое внутри выпадающего меню */
+}
+
+.nav .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav .dropdown-content a:hover {
+    background-color: #FFD740;  /* Цвет фона при наведении на ссылки */
+}
+
+.nav .dropdown:hover .dropdown-content {
+    display: block;  /* Показываем меню при наведении */
+    display: cente
+}
+
+
+
+.footer {
+    background-color:rgb(83, 83, 83); /* Серый цвет */
+    width: 100%; /* На всю ширину */
+    height: 50px; /* Высота */
+    position: fixed; /* Закреплено внизу экрана */
+    bottom: 0;
+    left: 0;
+    color: #fff; /* Белый текст */
+    display: flex;
+    align-items: center;
+    padding-left: 20px; /* Отступ для текста */
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.footer p {
+    margin: 0; /* Убираем внешние отступы */
+}
+.footer p {
+margin: 0; /* Убираем внешние отступы */
+}
+
+.user-details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-family: Lemonada, sans-serif;
+    font-size: 18px;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.detail-value {
+    color: #555;
+}
+
+.input-container input {
+    width: 50%; /* Оставляем ширину полей */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 30px; /* Сдвиг полей ввода левее */
+    margin-top: 20px;
+}
+
+.input-container label {
+    margin-left: 10px;
+    font-weight: bold;
+    min-width: 150px;
+    text-align: right;
+}
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.form-section {
+    margin-top: -300px;
+    text-align: center;
+    position: relative; /* Для управления смещением */
+    left: 200px; /* Сдвиг блока вправо на 200 пикселей */
+}
+
+
+    </style>
+</head>
+<body>
+    {% block main %}
+    <header class="header">
+        <div class="logo">
+            <img src="img/LOGO.png" alt="Logo"> <!-- Логотип -->
+        </div>
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="#material-section">Материал</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Таблицы</a>
+                    <!-- Выпадающее меню -->
+                    <div class="dropdown-content">
+                        <a href="tabel-sin-and-cos.html">Таблица sin и cos</a>
+                        <a href="tabel-F.html">Таблица коэф трения</a>
+                    </div>
+                </li>
+                <li><a href="formulas.html">Формулы</a></li>
+                <li><a href="calc">Калькулятор</a></li>
+                <li><a href="Reviews.html">Отзывы</a></li>
+            </ul>
+        </nav>
+        <div class="cta" id="cta-container">
+        <div class="cta" id="cta-container">
+            <!-- Блок для отображения имени пользователя и аватарки -->
+            <div id="user-info" style="display: none;">
+                <span class="username" id="user-name"></span>
+                <img src="img/ava.png" alt="Avatar" class="user-avatar" id="user-avatar">
+            </div>
+            <a href="login.html" class="button" id="ctaButton">Войти в аккаунт</a>
+        </div>
+    </header>
+    
+   <div class="welcome-text">
+        <p>Добро пожаловать на наш сайт!<br>Мы вам предлагаем:</p>
+    </div>
+
+
+<!-- Модальное окно с аватаром и информацией пользователя -->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <!-- Крестик для закрытия модального окна -->
+        <span class="close-btn" id="closeModal">×</span>
+
+        <!-- Заголовок "Профиль" -->
+        <div class="modal-header">Профиль</div>
+
+        <!-- Содержимое модального окна -->
+        <div class="modal-user-info">
+            <img src="img/ava.png" alt="Avatar" class="modal-avatar">
+            <span class="modal-username" id="modal-username"></span>
+        </div>
+
+            <!-- Новая секция с текстовыми контейнерами -->
+    <div class="form-section" style="margin-top: -300px; text-align: center;">
+        <!-- Имя пользователя -->
+        <div class="input-container">
+            <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">Имя пользователя</label>
+            <input type="text" id="username" placeholder="Ваше имя" style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+        </div>
+
+        <!-- Почта -->
+        <div class="input-container">
+            <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">Почта</label>
+            <input type="email" id="email" placeholder="Ваш e-mail" style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+        </div>
+
+        <!-- Пароль -->
+        <div class="input-container">
+            <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Пароль</label>
+            <input type="password" id="password" placeholder="Ваш пароль" style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+        </div>
+        <!-- Кнопка Сохранить -->
+        <button id="saveBtn" style="margin-top: 20px; padding: 10px 20px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; cursor: pointer;">Сохранить</button>
+
+    </div>
+
+
+
+
+        <!-- Кнопка "Выйти из аккаунта" -->
+        <button class="logout-btn" id="logoutBtn">Выйти из аккаунта</button>
+    </div>
+</div>
+
+    
+    
+    
+    <div class="container">
+        <div class="rectangle">
+            <img src="img/ОКМ.jpg" alt="Изображение 1">
+            <div class="text">1. Основы классической механики. Мы объясним основные понятия и законы классической механики, такие как законы Ньютон</div>
+        </div>
+        <div class="rectangle">
+            <img src="img/ВИД.jpg" alt="Изображение 2">
+            <div class="text">2. Видеоуроки. Мы предлагаем видеоуроки, в которых объясняются сложные понятия и решаются задачи по классической механике.</div>
+        </div>
+        <div class="rectangle">
+            <img src="img/СПР.jpg" alt="Изображение 3">
+            <div class="text">3. Справочник. Мы собрали основные формулы и определения по классической механике, чтобы вы могли быстро найти нужную информацию</div>
+        </div>
+        <div class="rectangle">
+            <img src="img/ОС.jpg" alt="Изображение 4">
+            <div class="text">4. Обратная связь. Если у вас есть вопросы или замечания, вы можете связаться с нами через форму обратной связи.</div>
+        </div>
+    </div>
+
+    <!-- Вторая часть программы -->
+    <div class="header-text" id="material-section">
+        Выберите тему материала:
+    </div>
+    
+    <div class="button-container">
+        <div class="button-row">
+            <a href="#video-tutorial" class="button">
+                <img src="img/1.jpg" alt="Тема 1">
+                <span>Динамика-наука о взаимодействии тел</span>
+            </a>
+    
+            <a href="#video-tutorial-statics" class="button">
+                <img src="img/2.jpg" alt="Тема 2">
+                <span>Статика-наука о равновесии</span>
+            </a>
+        </div>
+        <div class="button-row">
+            <a href="#video-tutorial-dynamics" class="button">
+                <img src="img/3.jpg" alt="Тема 3">
+                <span>Кинематика-наука о движении тела</span>
+            </a>
+        </div>
+    </div>
+    
+    
+
+
+
+
+        <!-- Текст перед видео -->
+<div class="video-text" id="video-tutorial-dynamics">
+    Обучающий видеоролик на тему "Кинематика"
+</div>
+<div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Ui0bFK4_87M?si=44R88w6ar9j-nyMg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+    <div class="text-block content">
+
+    <div class="horizontal-line"></div>
+
+    <div class="text-block content">
+        <div class="side-text">Равнопеременное прямолинейное движение</div>
+        <div>
+            <p class="equation">1. a = 𝒗 – 𝒗₀ / t - ускорение</p>
+            <p class="equation">2. x = ±x₀ ± 𝒗₀t ± at/2 - уравнение Галлилео</p>
+            <p class="equation">3. 𝒗 = ±𝒗₀ ± at  - уравнение скорости</p>
+            <p class="equation">4. 2Sa=𝒗²-𝒗₀²</p>
+            <p class="equation">5. 𝒗<span class="small-text">ср</span> = S₁ + S₂ + S₃ … / t₁ + t₂ + t₃ … - средняя скорость</p>
+            <p class="equation"> a - ускорение (м/с²)</p>
+            <p class="equation"> 𝒗 - скорость (м/с)</p>
+            <p class="equation"> t - время (c)</p>
+            <p class="equation"> S - путь (м)</p>
+        </div>
+    </div>
+    <div class="horizontal-line"></div>
+
+    <div class="text-block content">
+        <div class="side-text">Движение по окружности:</div>
+        <div>
+            <p class="equation">1. a = 𝒗 – 𝒗₀ / t - ускорение</p>
+            <p class="equation">2. x = ±x₀ ± 𝒗₀t ± at/2 - уравнение движения</p>
+            <p class="equation">3. 𝒗 = ±𝒗₀ ± at  - уравнение скорости</p>
+            <p class="equation">4. 𝒗<span class="small-text">ср</span> = S₁ + S₂ + S₃ … / t₁ + t₂ + t₃ … - средняя скорость</p>
+            <p class="equation">5. S = x − x₀ = 𝒗t  -  перемещение   </p>
+        </div>
+    </div>
+
+    <div class="horizontal-line"></div>
+
+ 
+
+            <div class="side-text">Движение по окружности:</div>
+        <div>
+            <p class="equation">1. w= l / t - Угловая скорость</p>
+            <p class="equation">2. 𝒗=wR - скорость</p>
+            <p class="equation">3. a = 𝒗² / R - центростремительное ускорение</p>
+
+            <div class="horizontal-line"></div>
+
+            <div class="video-text" id="video-tutorial">
+                Обучающий видеоролик на тему "Динамика"
+            </div>
+
+<!-- Вставка видео -->
+<div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Bfp_fQLHYsc?si=cmEeNvEQUjvZ87NF" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+    <div class="horizontal-line"></div>
+
+    <div class="text-block content">
+        <div class="side-text">Динамика</div>
+        <div>
+            <p class="equation">1. ma = F₁ + F₂ + ... + Fn - Второй закон Ньютона</p>
+            <p class="equation">2. m₁a₁=-m₂a₂ - Третий закон Ньютон</p>
+            <p class="equation">3. F = kx  - Закон Гука</p>
+            <p class="equation">4. F<span class="small-text">тр</span> = ±𝒗₀ ± at  - Модуль силы трения</p>
+            <p class="equation">5. F = G (m₁m₂)/R²  - Закон всемирного тяготения</p>
+            <p class="equation">F - сила (Н)</p>
+            <p class="equation">R - радиус планеты (Н)</p>
+            <p class="equation">m - масса (кг)</p>
+            <p class="equation">k - коэфициент упругости</p>
+            <p class="equation">x - длина растяжимости (м)</p>
+            <p class="equation">G - гравитационное постоянство (Н*м²/кг²)</p>
+            <p class="equation">G = 6,67/10¹¹ (Н*м²/кг²)</p>
+            
+
+            
+        </div>
+    </div>
+
+
+    <div class="horizontal-line"></div>
+
+    <div class="video-text" id="video-tutorial-statics">
+        Обучающий видеоролик на тему "Статика"
+    </div>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dWPQaN7PHdE?si=vUa87aBH6bsrhGxW" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+
+    <div class="horizontal-line"></div>
+
+    <div class="text-block content">
+        <div class="side-text">Статика</div>
+        <div>
+            <p class="equation">1. M=Fl - Момент силы</p>
+            <p class="equation">2. M₁+M₂+M₃+...=0 - Правило моментов</p>
+            <p class="equation">3. F₁+F₂+F₃+...=0  - Первое условие равновесия</p>
+            <p class="equation">M-момент силы (Н*м)</p>
+            <p class="equation">l-плечо силы (м)</p>
+            
+        </div>
+    </div>
+
+
+    <div id="telegram-chat">
+        <a href="https://t.me/physics_expert_bot" target="_blank">
+          <img src="img/i.webp" alt="Telegram">
+        </a>
+      </div>
+    
+      
+    
+    <script>
+        window.onload = function() {
+            const savedName = localStorage.getItem('name'); // Имя пользователя
+            const savedEmail = localStorage.getItem('email'); // Почта пользователя
+            const savedPassword = localStorage.getItem('password'); // Пароль пользователя
+        
+            const ctaButton = document.getElementById('ctaButton');
+            const userInfo = document.getElementById('user-info');
+            const userNameSpan = document.getElementById('user-name');
+            const userAvatar = document.getElementById('user-avatar');
+            const userModal = document.getElementById('userModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalUsername = document.getElementById('modal-username');
+            const modalAvatar = document.querySelector('.modal-avatar');
+            const logoutBtn = document.getElementById('logoutBtn');
+        
+            // Поля ввода в модальном окне
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+        
+            // Кнопка сохранения данных
+            const saveBtn = document.getElementById('saveBtn');
+        
+            if (savedName) {
+                ctaButton.style.display = 'none'; // Скрываем кнопку входа
+                userInfo.style.display = 'flex'; // Показать блок с аватаркой
+        
+                userNameSpan.textContent = savedName;
+                modalUsername.textContent = savedName;
+        
+                modalAvatar.src = "img/ava.png"; // Аватар
+                userAvatar.src = "img/ava.png"; // Аватар
+        
+                // Заполняем поля ввода значениями
+                usernameInput.value = savedName;
+                emailInput.value = savedEmail || '';
+                passwordInput.value = savedPassword || '';
+        
+                userAvatar.addEventListener('click', function() {
+                    userModal.style.display = 'block';
+                });
+            } else {
+                ctaButton.textContent = "Войти в аккаунт";
+                ctaButton.href = "login.html";
+            }
+        
+            closeModal.addEventListener('click', function() {
+                userModal.style.display = 'none';
+            });
+        
+            window.addEventListener('click', function(event) {
+                if (event.target === userModal) {
+                    userModal.style.display = 'none';
+                }
+            });
+        
+            // Логика сохранения данных
+            saveBtn.addEventListener('click', function() {
+                const name = usernameInput.value.trim();
+                const email = emailInput.value.trim();
+                const password = passwordInput.value.trim();
+        
+                if (name && email && password) {
+                    // Сохраняем данные в localStorage
+                    localStorage.setItem('name', name);
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('password', password);
+        
+                    alert('Данные успешно сохранены!');
+                    userNameSpan.textContent = name; // Обновляем имя пользователя
+                    modalUsername.textContent = name;
+                } else {
+                    alert('Пожалуйста, заполните все поля.');
+                }
+            });
+        
+            // Логика выхода из аккаунта
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('name');
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+                window.location.href = "login.html";
+            });
+        };
+        
+
+    </script>
+
+
+
+    
+    {% endblock %}
+</body>
+<!-- Добавить перед закрывающим тегом </body> -->
+<footer class="footer">
+    <p>© Цветков Даниил и Филиппов Артём, 2024 © ООО “Fiz=MAths”, 2024</p>
+</footer>
+
+</html>

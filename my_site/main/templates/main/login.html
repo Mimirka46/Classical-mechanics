@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        /* Общий стиль */
+        body {
+            font-family: Lemonada, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, 
+                rgba(217, 179, 67, 0.69) 10%,
+                rgba(217, 170, 82, 0.77) 20.5%,
+                rgba(166, 108, 38, 0.82) 40%,
+                rgba(89, 51, 18, 0.86) 76%,
+                rgba(38, 18, 1, 0.84) 90.5%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+        }
+
+        .form-container form {
+            background: rgba(248, 198, 122, 0.90);
+            padding: 40px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .form-container h2 {
+            color: #000;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ffcc00;
+            background: #FBE2BC;
+            color: #000;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .form-container input::placeholder {
+            color: #888;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+
+        .form-container button:hover {
+            background-color: #ff9900;
+        }
+
+        .register-link {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #000000
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+            color: #000000
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="form-container">
+    <form id="loginForm">
+        <h2>Вход</h2>
+        <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
+        <input type="email" id="email" name="email" placeholder="Электронная почта" required>
+        <input type="password" id="password" name="password" placeholder="Пароль" required>
+        <button type="button" id="loginBtn">Войти</button>
+        <a href="register.html" class="register-link">Создать аккаунт</a>
+    </form>
+</div>
+
+
+
+
+<script>
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        // Получаем данные из localStorage
+        const savedName = localStorage.getItem('name'); // Имя пользователя
+        const savedEmail = localStorage.getItem('email'); // Email
+        const savedPassword = localStorage.getItem('password'); // Пароль
+    
+        const username = document.getElementById('username').value; // Имя пользователя, введенное в форму
+        const email = document.getElementById('email').value; // Email, введенный в форму
+        const password = document.getElementById('password').value; // Пароль, введенный в форму
+    
+        // Проверяем данные
+        if (username === savedName && email === savedEmail && password === savedPassword) {
+            alert('Добро пожаловать на наш сайт!');
+            window.location.href = 'home_menu.html'; // Переход на home_menu.html
+        } else {
+            alert('Неверные данные. Попробуйте ещё раз!');
+        }
+    });
+    
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Lemonada, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, 
+                rgba(217, 179, 67, 0.69) 10%,
+                rgba(217, 170, 82, 0.77) 20.5%,
+                rgba(166, 108, 38, 0.82) 40%,
+                rgba(89, 51, 18, 0.86) 76%,
+                rgba(38, 18, 1, 0.84) 90.5%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: rgba(248, 198, 122, 0.90);
+            padding: 40px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .form-container h2 {
+            color: #000;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ffcc00;
+            background: #FBE2BC;
+            color: #000;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffcc00;
+            border: none;
+            font-size: 16px;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff9900;
+        }
+
+        .login-link {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #000000
+        }
+
+
+        .login-link:hover {
+            text-decoration: underline;
+            color: #000000
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="registerForm">
+            <h2>Регистрация</h2>
+            <input type="text" id="registerUsername" name="registerUsername" placeholder="Имя пользователя" required>
+            <input type="email" id="registerEmail" name="registerEmail" placeholder="Электронная почта" required>
+            <input type="password" id="registerPassword" name="registerPassword" placeholder="Пароль" required>
+            <button type="button" id="registerBtn">Зарегистрироваться</button>
+            <a href="login.html" class="login-link">Уже есть аккаунт? Войти</login-link>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            // Получаем данные из формы регистрации
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+    
+            // Сохраняем данные в localStorage
+            localStorage.setItem('name', username);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+    
+            alert('Регистрация успешна! Теперь вы можете войти.');
+            window.location.href = 'login.html'; // Перенаправление на страницу входа
+        });
+    </script>
+</body>
+</html>
